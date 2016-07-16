@@ -1,0 +1,31 @@
+<div class="search-container {{selected.length > 0 ? 'selecting' : ''}}">
+	<nav>
+        <div class="nav-wrapper nav-commands selecting">
+            <a ng-click="undoSelection()"><i class="material-icons">keyboard_backspace</i></a>
+            <a class="brand-logo">{{selected.length}} {{"selected" | translate}}</a>
+            <a ng-click="edit(selected[0])" ng-show="selected.length === 1"><i class="material-icons">edit</i></a>
+            <a ng-click="remove()"><i class="material-icons">delete</i></a>
+        </div>
+		<div class="nav-wrapper nav-commands search-navbar">
+			<form  ng-submit="filter()">
+				<a ng-click="back()"><i class="material-icons">keyboard_backspace</i></a>
+				<input autofocus id="search" class="advanced" type="search" ng-model="searchText" />
+				<label for="search" ng-click="clear()"><i class="material-icons">clear</i></label>
+				<a ng-click="searchOptions()"><i class="material-icons">tune</i></a>
+				<button type="submit" class="hide"></button>
+			</form>
+	    </div>
+	</nav>
+	<div class="search-immobile-list">
+		<ul class="collection">
+			<li actofocus ng-repeat="immobile in immobiles" hm-press="select(immobile)" ng-click="detail(immobile)"
+				class="waves-effect collection-item avatar immobile-status-{{immobile.status}} {{immobile.selected ? 'active' : ''}}">
+				<i class="{{immobile.selected ? 'material-icons' : 'fa fa-' + getIcon(immobile.type)}} circle" 
+					ng-click="select(immobile); $event.stopPropagation();">{{immobile.selected ? 'check' : ''}}</i>
+				<span class="title">{{immobile.name}}</span>
+				<p><span class="status-text">{{immobile.status | translate}}</span> 
+				   | {{immobile.address}}, {{immobile.city}} - {{immobile.state}}</p>
+			</li>
+		</ul>
+	</div>
+</div>

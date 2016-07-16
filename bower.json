@@ -1,0 +1,43 @@
+{
+  "name": "Imoble",
+  "version": "1.0.0",
+  "main": "path/to/main.css",
+  "ignore": [
+    ".jshintrc",
+    "**/*.txt"
+  ],
+  "dependencies": {
+    "angular": "angularjs#~1.4.7",
+    "angular-route": "~1.4.7",
+    "iscroll": "~5.1.3",
+    "simplr-smoothscroll": "~1.0.1",
+    "font-awesome": "Font-Awesome#~4.4.0",
+    "AngularHammer": "ryanmullins-angular-hammer#~2.1.10",
+    "angular-translate": "~2.8.1",
+    "Materialize": "materialize#~0.97.2",
+    "angular-resource": "~1.4.7"
+  },
+  "devDependencies": {},
+  "overrides": {
+    "Materialize": {
+      "main": [
+        "dist/js/materialize.min.js"
+      ]
+    },
+    "iscroll": {
+      "main": [
+        "build/iscroll.js"
+      ]
+    },
+    "sass-bootstrap-glyphicons": {
+      "main": [
+        "css/bootstrap-glyphicons.css"
+      ]
+    },
+    "angular-gestures": {
+      "main": [
+        "gestures.min.js"
+      ]
+    }
+  }
+}

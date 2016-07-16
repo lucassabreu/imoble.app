@@ -1,0 +1,33 @@
+<div class="edit-immobile-item-view detail">
+	<nav>
+		<div class="nav-wrapper nav-commands">
+			<a ng-click="confirm()"><i class="material-icons">done</i></a>
+			<a class="brand-logo">
+                {{ !immobileItem || immobileItem.id ? 'edit_immobile_item' : 'add_immobile_item' | translate}}
+            </a>
+			<a href="#delete_immobile_item" modal-trigger ng-show="immobileItem.id"><i class="material-icons">delete</i></a>
+			<a ng-click="cancel()"><i class="material-icons">cancel</i></a>
+		</div>
+	</nav>
+
+	<preloader ng-show="!immobileItem" />
+    <form class="edit-view" ng-if="immobileItem">
+        <div class="input-field">
+            <i class="material-icons prefix">location_city</i>
+            <input autofocus id="name" type="text" class="validate" placeholder="{{ 'immobile_item_name' | translate }}"
+                ng-model="immobileItem.name" required />
+
+        	<select material-select id="immobile_item_status" ng-model="immobileItem.status" required>
+                <option ng-repeat="status in statusList" value="{{status}}">{{status | translate}}</option>
+    	    </select>
+    	    <label for="immobile_item_status" class="active">{{ 'immobile_item_status' | translate }}</label>
+        </div>
+        <div class="input-field">
+        	<i class="material-icons prefix">assignment</i>
+        	<textarea id="immobile_item_description" class="materialize-textarea" 
+                placeholder="{{ 'immobile_item_description' | translate }}"
+        		ng-model="immobileItem.description"></textarea>
+        </div>
+	</form>
+</div>
+<delete-immobile-item confirm="remove()"></delete-immobile-item>

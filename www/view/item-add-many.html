@@ -1,0 +1,36 @@
+<div class="edit-immobile-item-view detail">
+	<nav>
+		<div class="nav-wrapper nav-commands">
+			<a ng-click="confirm()"><i class="material-icons">done</i></a>
+            <a class="brand-logo" ng-show="!immobile">{{ 'loading' | translate}}</a>
+            <a class="brand-logo" ng-show="immobile">{{ 'add_immobile_items_to' | translate}} {{immobile.name}}</a>
+			<a ng-click="cancel()"><i class="material-icons">cancel</i></a>
+		</div>
+	</nav>
+
+	<preloader ng-show="!immobile" />
+    <form class="edit-view" ng-if="immobile">
+        <div class="input-field">
+            <i class="material-icons prefix">location_city</i>
+            <input autofocus id="prefix" type="text" class="validate" placeholder="{{ 'immobile_item_prefix' | translate }}"
+                ng-model="data.itemPrefix" />
+            <input ng-model="data.startNumber" type="number" 
+                placeholder="{{ 'immobile_item_start_number' | translate }}" />
+            <input ng-model="data.endNumber" value="{{data.endNumber}}" type="number" 
+                placeholder="{{ 'immobile_item_end_number' | translate }}" />
+        </div>
+        <div class="input-field">
+            <i class="material-icons prefix">home</i>
+        	<select material-select id="immobile_item_status" ng-model="data.itemStatus" required>
+                <option ng-repeat="status in statusList" value="{{status}}">{{status | translate}}</option>
+    	    </select>
+    	    <label for="immobile_item_status" class="active">{{ 'immobile_items_status' | translate }}</label>
+        </div>
+        <div class="input-field">
+        	<i class="material-icons prefix">assignment</i>
+        	<textarea id="immobile_items_description" class="materialize-textarea" 
+                placeholder="{{ 'immobile_items_description' | translate }}"
+        		ng-model="data.temDescription"></textarea>
+        </div>
+	</form>
+</div>

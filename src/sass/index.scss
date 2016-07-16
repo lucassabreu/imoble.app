@@ -1,0 +1,543 @@
+@charset "UTF-8";
+
+@mixin transition($transition...) {
+    -moz-transition:    $transition;
+    -o-transition:      $transition;
+    -webkit-transition: $transition;
+    transition:         $transition;
+}
+
+@mixin collection-item-color ($color...) {
+    i.circle {
+        background-color: $color;
+    }
+
+    .status-text {
+        color: $color;
+    } 
+}
+
+// Materialize;
+@import "materialize/sass/components/_color.scss";
+@import "materialize/sass/components/_variables.scss";
+
+@import "icon.scss";
+@import "helper.scss";
+
+// other variables
+
+$scroll-tabs-separator-width: 2px;
+$scroll-tabs-separator-height: 60%;
+
+$icon-tabs-height: 4rem;
+
+$icon-font-size-btn-floating: 2rem;
+
+$preloader-top: 50%;
+$preloader-left: 50%;
+$preloader-width-height: 100px;
+
+/** Begin: Swipe View **/
+
+[swipe-view] {
+    overflow-x: hidden;
+    overflow-y: hidden;
+    white-space: nowrap;
+    
+    .view {
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        overflow-x: hidden;
+        overflow-y: auto;
+        @include transition(margin-left 0.5s 0s);
+    }
+}
+
+/*** End: Swipe View ***/
+
+form .input-field:first-child {
+    margin-top: 0;
+}
+
+.input-field {
+    .prefix {
+        top: .6rem;
+    }
+
+    .prefix ~ input,
+    .prefix ~ .select-wrapper {
+        margin-left: 3rem;
+        width: 80%;
+        width: calc(100% - 3rem);
+    } 
+    
+    .select-wrapper {
+        margin-top: 1.2rem;
+    }
+    
+    .select-wrapper + label {
+        position: relative;
+        top: -3.5rem;
+        display: block;
+        margin-top: -.8rem;
+        font-size: 0.8rem;
+        height: .8rem;
+    }
+}
+
+.view-container {
+    & > div {
+        position: fixed;
+        height: 100%;
+        width: 100%;
+    }
+
+    .splach-screen {
+        height: 100%;
+        width: 100%;
+        background: url(../images/splash.png) center center;
+    }
+
+    .preloader-wrapper {
+        position: absolute;
+        top: $preloader-top;
+        left: $preloader-left;
+        width: $preloader-width-height;
+        height: $preloader-width-height;
+        margin-left: $preloader-width-height / -2;
+        margin-top: $preloader-width-height / -2;
+
+        .circle-clipper .circle {
+            border-width: 7px;
+        }
+    }
+
+    .floating-options {
+        position: fixed;
+        right: $icon-font-size-btn-floating * 1.25;
+        bottom: $icon-font-size-btn-floating * .75;
+        z-index: 99999;
+        width: calc(100% - #{$icon-font-size-btn-floating * 1.25 * 2});
+
+        li {
+            display: inline-block;
+            float: right;
+            margin-left: $icon-font-size-btn-floating * .2;
+        }
+
+        .btn-floating {
+            height: $icon-font-size-btn-floating * 2;
+            width: $icon-font-size-btn-floating * 2;
+            @transition: height 1s 0s, width 1s 0s, font-size 1s 0s, line-height 1s 0s;
+        }
+
+        .btn-floating.btn-large i {
+            font-size: $icon-font-size-btn-floating;
+            line-height: $icon-font-size-btn-floating * 2;
+        }
+    }
+
+    .selecting .floating-options.not-selecting {
+        .btn-floating {
+            height: 0;
+            width: 0;
+            font-size: 0;
+            line-height: 0;
+        }
+    }
+
+    & > div {
+        position: fixed;
+        width: 100%;
+        top: 0;
+        bottom: 0;
+    }
+
+    .detail-item {
+        display: table;
+        width: 100%;
+        padding: 0 .5rem;
+
+        > * {
+            font-size: 2.3rem;
+            display: table-cell;
+            width: 1%;
+            height: 100%;
+            padding: 1rem .75rem;
+            color: $primary-color;
+        }
+
+        .detail-content:not(p) {
+            top: -1rem;
+        }
+
+        p.detail-content {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            padding: 1.5rem 1rem;
+        }
+
+        .detail-content {
+            font-size: 120%;
+            position: relative;
+            width: 100%;
+            padding-top: 0;
+            padding-bottom: 0;
+            color: $input-field-focus-color;
+
+            span, label {
+                display: block;
+            }
+        }
+    }
+
+    .settings-view {
+        font-size: 250%;
+        text-align: center;
+        padding-top: 5rem !important;
+    }
+
+    .detail {
+        padding-top: $navbar-height-mobile;
+
+        nav {
+            top: 0;
+        }
+
+        .detail-view, .edit-view {
+            overflow-y: auto;
+        }
+
+        .detail-view {
+            padding: .5rem;
+            height: 100%;
+        }
+
+        .edit-view {
+            overflow-y: auto;
+            height: 100%;
+            padding: 1rem 2rem 1rem 1rem;
+        }
+
+        .card header {
+            color: $primary-color;
+            padding: .75rem;
+            border-bottom: 1px solid rgba(160, 160, 160, 0.2);
+            font-size: 97%;
+        }
+
+    }
+
+    .nav-wrapper.nav-commands {
+        display: table;
+        border-collapse: separate;
+        white-space: nowrap;
+        width: 100%;
+
+        > *, form > * {
+            display: table-cell;
+            white-space: nowrap;
+            width: 1%;
+            vertical-align: middle;
+        }
+        
+        a, label {
+            padding: 0 .8rem;
+        }
+
+        .brand-logo, form {
+            width: 110%;
+        }
+
+        .brand-logo {
+            font-size: 130%;
+            transform: none;
+            position: relative;
+            left: 0;
+
+            &.main {
+                font-size: 180%;
+            }
+        }
+    }
+
+    .commands {
+        position: absolute;
+        opacity: 1;
+        visibility: visible;
+        @include transition(visibility .5s, opacity .5s linear .5s);
+
+        &.selecting {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        &.right {
+            right: 0;
+        }
+
+        &.left {
+            left: 0;
+        }
+    }
+
+    .nav-wrapper.selecting {
+        position: absolute;
+        visibility: hidden;
+        opacity: 0;
+        height: $navbar-height-mobile;
+        width: 100%;
+        @include transition(visibility .5s, opacity .5s linear .5s);
+    }
+
+    .nav-wrapper.not-selecting, .nav-wrapper.search-navbar {
+        visibility: visible;
+        opacity: 1;        
+        @include transition(visibility .5s, opacity .5s linear .5s);
+    }
+
+    .selecting {
+        .nav-wrapper.not-selecting, .nav-wrapper.search-navbar {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .commands.selecting {
+            opacity: 1;
+            visibility: visible;   
+        }
+
+        .nav-wrapper.selecting {
+            visibility: visible;
+            opacity: 1;
+        }
+    }
+
+    .main-container {
+        .main-list, preloader {
+            display: block;
+            height: 100%;
+        }
+
+        preloader .preloader-wrapper {
+            top: calc(#{$preloader-top} + #{($navbar-height-mobile + $icon-tabs-height) / 2});
+        }
+
+        &.items-container .main-list {
+            padding-top: $navbar-height-mobile + $tabs-height;
+        }
+
+        .main-list {
+            padding-top: $navbar-height-mobile + $icon-tabs-height + $tabs-height;
+            @include transition(padding-top .5s linear .5s);
+            
+            ul {
+                margin: 0;
+                padding: 0;
+            }
+
+            ul li {
+                &.active, &.active a {
+                    color: #fff;
+                }
+
+                a {
+                    color : $off-black;
+                }
+            } 
+        }
+
+        &.selecting .main-list {
+            padding-top: $navbar-height-mobile;
+        }
+
+        nav .tabs {
+            @include transition(height .5s linear .5s);
+        }
+
+        &.selecting nav .tabs {
+            &, .indicator {
+                height: 0rem;
+            }
+        }
+    }
+
+    .empty-list {
+        width: 100%;
+        padding: 1rem;
+        color: $primary-color;
+        text-align: center;
+        font-style: italic;
+        font-size: 110%;
+    }
+
+    .collection .collection-item {
+        width: 100%;
+        float: left;
+
+        .title {
+            font-size: 110%;
+            font-weight: bold;
+        }
+
+        p {
+            white-space: normal;
+            margin: 0;
+        }
+    }
+
+    .search-immobile-list {
+        padding-top: $navbar-height-mobile;
+        height: 100%;
+        
+        ul {
+            height: 100%;
+            overflow-y: auto;
+            margin: 0;
+            padding: 0;
+        }
+
+        .collection .collection-item.avatar {
+            width: 100%;
+
+            .circle {
+                font-size: 200%;
+            }
+
+            &:not([class*=active]) {
+                &.immobile-status-to_rent {
+                    @include collection-item-color(blue);
+                }
+
+                &.immobile-status-to_sell {
+                    @include collection-item-color(green);
+                }
+
+                &.immobile-status-selled {
+                    @include collection-item-color(red);
+                }
+
+                &.immobile-status-rented {
+                    @include collection-item-color(orange);
+                }
+            }
+        }
+    }
+    
+    nav {
+        position: fixed;
+        z-index: 1000;
+        height: auto;
+    
+        .nav-wrapper {
+            height: $navbar-height-mobile;
+
+            .brand-logo.selecting {
+                font-size: 120%;
+                left: 4rem;
+            }
+
+            &.search-navbar form {
+                background-color: $input-bg-color;
+                position: relative;
+                border-collapse: separate;
+                display: table;
+                white-space: nowrap;
+
+                & > * {
+                    display: table-cell;
+                    white-space: nowrap;
+                    width: 1%;
+                    vertical-align: middle;
+                    color: $input-field-focus-color;
+                }
+
+                input[type=search] {
+                    width: 100%;
+                    height: 100%;
+                    margin: 0;
+                    border-bottom: none;
+                    font-size: 1.2rem;
+
+                    &:focus{
+                        box-shadow: none;
+                    }
+                }
+            }
+        
+            ul li a * {
+                line-height: $navbar-height-mobile;
+                height: $navbar-height-mobile;
+            }
+        }
+        .tabs {
+            .indicator {
+                @include transition(left .5s 0s);
+            }
+        
+            &.icon-tabs {
+                background-color: $primary-color;
+                height: $icon-tabs-height;
+                
+                .indicator {
+                    background-color: $navbar-font-color;
+                }
+                
+                li {
+                    height: 100%;
+
+                    a {
+                        color: $navbar-tab-font-color;
+                        line-height: 1rem;
+                        
+                        &.active {
+                            color: $navbar-font-color;
+                        }
+                        
+                        span {
+                            display: none;
+                        }
+                    }
+                    
+                    [icon] {
+                        display: block;
+                        line-height: $icon-tabs-height;
+                        font-size: 2.5rem;
+                    }
+                }
+            }
+    
+            &.scroll-tabs {
+                overflow-x: auto;
+                overflow-y: hidden;
+                
+                .tab {
+                    position: relative;
+                    text-transform: none;
+                    width: auto;
+                    float: none;
+                    margin-right: $scroll-tabs-separator-width;
+            
+                    & a:hover {
+                        color: $tabs-text-color;
+                    }
+                    
+                    &:before {
+                        content: "";
+                        position: absolute;
+                        left: -$scroll-tabs-separator-width;
+                        width: $scroll-tabs-separator-width;
+                        height: $scroll-tabs-separator-height;
+                        top: (100% - $scroll-tabs-separator-height) / 2;
+                        background-color: $tabs-text-color;
+                    }
+                    
+                    &, a {
+                        overflow: initial;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,32 @@
+<div class="edit-immobile-item-view detail">
+	<nav>
+		<div class="nav-wrapper nav-commands">
+			<a ng-click="back()"><i class="material-icons">keyboard_backspace</i></a>
+            <a class="brand-logo" ng-if="immobileItem">{{immobileItem.name}}</a>
+            <a class="brand-logo" ng-if="!immobileItem">{{ 'loading' | translate }}</a>
+            <a href="#/immobile/{{immobileItem.immobile}}/items/{{immobileItem.id}}/edit" 
+                ng-show="immobileItem"><i class="material-icons">edit</i></a>
+            <a href="#delete_immobile_item" modal-trigger ng-show="immobileItem.id"><i class="material-icons">delete</i></a>
+		</div>
+	</nav>
+	<preloader ng-show="!immobileItem" />
+    <div class="detail-view" ng-if="immobileItem">
+        <div class="card">
+            <div class="detail-item">
+                <i class="agrup-icon material-icons">location_city</i>
+                <div class="detail-content">
+                    <span>{{immobileItem.status | translate}}</span>
+                    <label>{{"immobile_status" | translate}}</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" ng-show="immobileItem.description !== undefined && immobileItem.description !== ''">
+            <header>{{"about" | translate}} {{immobileItem.name}}</header>
+            <div class="detail-item">
+                <p class="detail-content">{{immobileItem.description | line_break}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<delete-immobile-item confirm="remove()"></delete-immobile-item>

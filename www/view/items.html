@@ -1,0 +1,46 @@
+<div class="main-container items-container {{selected.length > 0 ? 'selecting' : ''}}">
+    <nav>
+        <div class="nav-wrapper nav-commands selecting">
+            <a ng-click="undoSelection()"><i class="material-icons">keyboard_backspace</i></a>
+            <a class="brand-logo">{{selected.length}} {{"selected" | translate}}</a>
+            <a ng-click="edit(selected[0])" ng-show="selected.length === 1"><i class="material-icons">edit</i></a>
+            <a modal-trigger href="#delete_immobile_item"><i class="material-icons">delete</i></a>
+        </div>
+        <div class="nav-wrapper nav-commands not-selecting">
+            <a ng-click="back()"><i class="material-icons">keyboard_backspace</i></a>
+            <a class="brand-logo" ng-show="!immobile">{{ 'loading' | translate }}</a>
+            <a class="brand-logo" ng-show="immobile">{{ 'items_of' | translate }} {{immobile.name}}</a>
+        </div>
+        <ul swipe-view-control class="immobile-status-list" ng-show="immobile.items"
+            current-view="currentView" >
+            <li swipe-tab-link ng-repeat="status in statusList" 
+                target="'#tab-status-' + status">
+                {{status | translate}}
+            </li>
+        </ul>
+    </nav>
+    <preloader ng-show="!immobile.items" />
+    <div swipe-view class="main-list" ng-show="immobile.items" can-swipe="selected.length == 0" current-view="currentView">
+        <div ng-repeat="status in statusList" 
+            id="tab-status-{{status}}" class="view">
+            <ul class="collection item-list item-list-{{status}}" ng-show="getListImmobileItems(status).length > 0">
+                <li ng-repeat="item in getListImmobileItems(status)" 
+                    hm-press="select(item)"
+                    ng-click="edit(item); $event.stopPropagation();"
+                    class="waves-effect collection-item {{item.selected ? 'active' : ''}}" >
+                    <span class="title">{{item.name}}</span>
+                </li>
+            </ul>
+            <p class="empty-list" ng-show="getListImmobileItems(status).length == 0">{{ 'no_immobile_items_in_this_status' | translate }}</p>
+        </div>
+        <ul class="floating-options not-selecting">
+            <li><a href="#/immobile/{{immobile.id}}/items/add" class="btn-floating btn-large waves-effect waves-light">
+                <i class="material-icons">add</i>
+            </a></li>
+            <li><a href="#/immobile/{{immobile.id}}/items/add-many" class="btn-floating btn-large waves-effect waves-light">
+                <i class="material-icons">playlist_add</i>
+            </a></li>
+        </ul>
+    </div>
+</div>
+<delete-immobile-item confirm="remove()"></delete-immobile-item>

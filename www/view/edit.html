@@ -1,0 +1,54 @@
+<div class="edit-immobile detail">
+	<nav>
+		<div class="nav-wrapper nav-commands">
+			<a ng-click="confirm()"><i class="material-icons">done</i></a>
+			<a class="brand-logo">{{ !immobile || immobile.id ? 'edit_immobile' : 'add_immobile' | translate}}</a>
+			<a href="#delete_immobile" modal-trigger ng-show="immobile.id"><i class="material-icons">delete</i></a>
+			<a ng-click="cancel()"><i class="material-icons">cancel</i></a>
+		</div>
+	</nav>
+
+	<preloader ng-show="!immobile" />
+  <form class="edit-view" ng-if="immobile">
+	  <div class="input-field">
+      <i class="material-icons prefix">location_city</i>
+      <input autofocus id="name" type="text" class="validate" placeholder="{{ 'immobile_name' | translate }}"
+        ng-model="immobile.name" required />
+    </div>
+	<div class="input-field" ng-if="!immobile.id || immobile.type == 'house'">
+    	<i class="material-icons prefix">home</i>
+    	<select material-select id="immobile_type" ng-model="immobile.type" required
+            ng-if="!immobile.id">
+          	<option ng-repeat="type in typeList" value="{{type.id}}">{{type.id | translate}}</option>
+	    </select>
+	    <label ng-if="!immobile.id" for="immobile_type" class="active">{{ 'immobile_type' | translate }}</label>
+
+    	<select material-select id="immobile_status" ng-model="immobile.status" required ng-disabled="immobile.type != 'house'">
+          	<option ng-repeat="status in statusList" value="{{status}}">{{status | translate}}</option>
+	    </select>
+	    <label for="immobile_status" class="active">{{ 'immobile_status' | translate }}</label>
+    </div>
+    <div class="input-field">
+    	<i class="material-icons prefix">attach_money</i>
+    	<input id="immobile_value" type="number" placeholder="{{ 'immobile_value' | translate }}" class="validate" 
+    		ng-model="immobile.value" value="{{immobile.value}}" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required />
+    </div>
+		<div class="input-field">
+    	<i class="material-icons prefix">place</i>
+    	<input id="immobile_city_name" type="text" class="validate" placeholder="{{ 'immobile_city_name' | translate }}"
+    		ng-model="immobile.city" required />
+
+    	<input id="immobile_city_state" type="text" class="validate" placeholder="{{ 'immobile_city_state' | translate }}"
+    		ng-model="immobile.state" required />
+
+    	<input id="immobile_address" type="text" class="validate" placeholder="{{ 'immobile_address' | translate }}"
+    		ng-model="immobile.address" required />
+    </div>
+    <div class="input-field">
+    	<i class="material-icons prefix">assignment</i>
+    	<textarea id="immobile_description" class="materialize-textarea" placeholder="{{ 'immobile_description' | translate }}"
+    		ng-model="immobile.description"></textarea>
+    </div>
+	</form>
+</div>
+<delete-immobile confirm="remove()"></delete-immobile>

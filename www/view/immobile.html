@@ -1,0 +1,55 @@
+<div class="detail-immobile detail">
+	<nav>
+        <div class="nav-wrapper nav-commands">
+			<a ng-click="back()"><i class="material-icons">keyboard_backspace</i></a>
+            <a class="brand-logo" ng-if="immobile">{{immobile.name}}</a>
+            <a class="brand-logo" ng-if="!immobile">{{ 'loading' | translate }}</a>
+            <a href="#/immobile/{{immobile.id}}/items" 
+            	ng-show="immobile && immobile.type != 'house'">
+            	<i class="material-icons">view_list</i>
+        	</a>
+            <a href="#/immobile/{{immobile.id}}/edit" ng-show="immobile"><i class="material-icons">edit</i></a>
+        </div>
+	</nav>
+	<preloader ng-show="!immobile" />
+	<div class="detail-view" ng-if="immobile">
+		<div class="card">
+			<div class="detail-item">
+				<i class="agrup-icon fa fa-{{getIcon(immobile.type)}}"></i>
+				<div class="detail-content">
+					<span>{{immobile.type | translate}}</span>
+					<label>{{"immobile_type" | translate}}</label>
+					<span ng-if="immobile.type == 'house'">{{immobile.status | translate}}</span>
+					<label ng-if="immobile.type == 'house'">{{"immobile_status" | translate}}</label>
+				</div>
+			</div>
+		</div>
+		<div class="card">
+			<div class="detail-item">
+				<i class="agrup-icon material-icons">attach_money</i>
+				<div class="detail-content">
+					<span>{{ immobile.value | formatDecimal }}</span>
+					<label>{{"immobile_value" | translate}}</label>
+				</div>
+			</div>
+		</div>
+		<div class="card">
+			<div class="detail-item waves-effect" ng-click="directions();">
+				<i class="agrup-icon material-icons">place</i>
+				<div class="detail-content">
+					<span>{{immobile.city}} - {{immobile.state}}</span>
+					<label>{{"immobile_city_and_state" | translate}}</label>
+					<span>{{immobile.address}}</span>
+					<label>{{"immobile_address" | translate}}</label>
+				</div>
+				<i class="material-icons">directions</i>
+			</div>
+		</div>
+		<div class="card" ng-show="immobile.description !== undefined && immobile.description !== ''">
+			<header>{{"about" | translate}} {{immobile.name}}</header>
+			<div class="detail-item">
+				<p class="detail-content">{{immobile.description | line_break}}</p>
+			</div>
+		</div>
+	</div>
+</div>
